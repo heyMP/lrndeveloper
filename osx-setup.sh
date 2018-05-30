@@ -14,13 +14,13 @@ mkdir ~/local
 mkdir ~/node-js
 cd ~/node-js
 curl http://nodejs.org/dist/node-v0.4.7.tar.gz | tar xz --strip-components=1
-./configure --prefix=~/local
+./configure --prefix=~/local --without-ssl
 make install
 # install npm
 curl http://npmjs.org/install.sh | sh
 # install bower
 npm install -g bower
 # install polymer
-npm install -g polymer-cli@next
+npm install -g polymer-cli
 
 echo "Your system should now have nodejs, npm, bower and polymer all ready to go!"

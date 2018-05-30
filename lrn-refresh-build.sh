@@ -17,38 +17,9 @@ lrnecho(){
 lrnwarn(){
   echo "${bldred}$1${txtreset}"
 }
-#repo in question
-repo=$1
-if [ -z $1 ]; then
-  read -rp "Repo name: " repo
-fi
-# go back a level so we have all the repos here
-cd ~/LRNWebcomponents/$repo
-# commit message
-commit=$2
-if [ -z $2 ]; then
-  read -rp "Commit message: " commit
-fi
-# add everything in from this repo
-git add -A
-git commit -m "$commit"
-git push origin master
 
-# tag for this repo
-tag=$3
-git tag
-if [ -z $3 ]; then
-  read -rp "Tag: " tag
-fi
-# push to this tag
-git tag $tag
-git push origin $tag
-# update demo to match
-sh update-demo.sh
 # move into the build directory
-cd ../build
-# install which will then update to this tag
-bower install --save LRNWebcomponents/$repo
+cd ~/LRNWebcomponents/build
 # build which will have the new item roped in
 polymer build
 # move to build directory
@@ -60,13 +31,11 @@ cd ../..
 cp -R components-to-copy/ build/default/bower_components/
 # add all changes for this
 git add -A
-git commit -m "updated downstream $repo"
+git commit -m "updated build dependencies"
 git push origin master
 # now make change in the build for edit derivative
 # move into the build directory
 cd ../build-for-edit
-# install which will then update to this tag
-bower install --save LRNWebcomponents/$repo
 # build which will have the new item roped in
 polymer build
 # move to build directory
@@ -81,4 +50,4 @@ cp build/build/default/push-manifest.json ~/elmsln/core/webcomponents/elements/_
 cp build/build/default/service-worker.js ~/elmsln/core/webcomponents/elements/_build/service-worker.js
 cp build-for-edit/build/default/build.html ~/elmsln/core/webcomponents/elements/_build/build_edit.html
 
-echo "$repo as well as the LRN build file have been updated"
+echo "LRN build files have been updated"

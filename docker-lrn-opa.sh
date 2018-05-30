@@ -15,7 +15,7 @@ lrnwarn(){
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 # go back a level so we have all the repos in scope
-cd ../
+cd /home/node/html
 #test for empty vars. if empty required var -- exit
 prompt="Enter a valid one page app name to create lrnapp-whatever: "
 project=$1
@@ -30,7 +30,7 @@ if [ -z $project ]; then
   exit 1
 fi
 # make the directory from our boilerplate
-cp -R lrndeveloper/boiler-plate-app $project
+cp -R /home/node/lrndeveloper/boiler-plate-app $project
 cd $project
 # do some name clean up
 mv src/boiler-plate-app src/${project}
@@ -57,12 +57,4 @@ rm manifest.jsone
 bower install
 # git stuff
 git init
-git remote add origin "git@github.com:LRNWebComponents/${project}.git"
-git add -A
-git commit -m "Initial commit of ${project} app"
-# this part will probably fail
-git push origin master
-lrnecho "if the previously step failed then go to https://github.com/organizations/LRNWebComponents/repositories/new and add a repo called ${project}"
-lrnecho "enjoy your new app!"
-# last step, serve it up!
-polymer serve --open
+lrnecho "Happy coding!"

@@ -1,1 +1,3 @@
 bower_components
+docker-files/*
+!docker-files/Dockerfile
